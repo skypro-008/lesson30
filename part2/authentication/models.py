@@ -14,3 +14,8 @@ class User(AbstractUser):
 
     sex = models.CharField(max_length=1, choices=SEX)
     role = models.CharField(max_length=8, choices=ROLE, default=UNKNOWN)
+
+    def save(self, *args, **kwargs):
+        self.set_password(self.password)
+
+        super().save()

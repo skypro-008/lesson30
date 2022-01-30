@@ -8,3 +8,8 @@ class User(AbstractUser):
     SEX = [(MALE, "Male"), (FEMALE, "Female")]
 
     sex = models.CharField(max_length=1, choices=SEX)
+
+    def save(self, *args, **kwargs):
+        self.set_password(self.password)
+
+        super().save()
