@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.db.models import Count, Avg, Q, F
 from django.http import JsonResponse
 from django.views import View
+from rest_framework.decorators import permission_classes
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.mixins import ListModelMixin
 from rest_framework.permissions import IsAuthenticated
@@ -74,6 +75,7 @@ class VacancyDeleteView(DestroyAPIView):
 
 
 class UserVacancyDetailView(View):
+    @permission_classes([IsAuthenticated])
     def get(self, request):
         users_qs = User.objects.annotate(vacancies=Count('vacancy'))
 
